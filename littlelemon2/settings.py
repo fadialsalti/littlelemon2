@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -76,17 +80,19 @@ WSGI_APPLICATION = "littlelemon2.wsgi.application"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'littlelemon',
-        'USER': 'root',
-        'PASSWORD': 'Qwzxas22',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
-        'OPTIONS': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'mydatabase',
+            'USER': 'root',
+            'PASSWORD': os.environ["MYSQL_PASSPORT"],
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+            'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
         }
+            #'read_default_file': './my.cnf',
+        }
     }
-}
+
 
 
 # Password validation
