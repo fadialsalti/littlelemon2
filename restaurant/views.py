@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from rest_framework import generics, viewsets
+from rest_framework import generics, viewsets, permissions
 from .serializers import UserSerializer, MenuSerializer, BookingSerializer
 from .models import Menu, Booking
 from django.contrib.auth.models import User
@@ -19,6 +19,7 @@ class SingleMenuItemView(generics.RetrieveUpdateDestroyAPIView):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated] 
     #permission_classes = (AllowPostAnyReadAuthenticatedUser,)
 
     # def get_queryset(self):
@@ -26,3 +27,8 @@ class UserViewSet(viewsets.ModelViewSet):
     #     if user.is_superuser:
     #         return User.objects.all()
     #     return User.objects.filter(username=user.username)
+
+class BookingViewSet(viewsets.ModelViewSet):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
+    permission_classes = [permissions.IsAuthenticated] 
